@@ -67,10 +67,10 @@ const LogTable = ({ logs, onSort, sortBy, sortDir }) => {
                 <td className="timestamp-cell">
                   <div className="timestamp">
                     <div className="time-main">
-                      {new Date(log.timestamp).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}
+                      {new Date(log.timestamp).toLocaleDateString()}
                     </div>
                     <div className="time-sub">
-                      {new Date(log.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}
+                      {new Date(log.timestamp).toLocaleTimeString()}
                     </div>
                     <div className="time-relative">
                       {formatDistanceToNow(new Date(log.timestamp), { addSuffix: true })}
