@@ -1,21 +1,21 @@
 import {
-    ArrowPathIcon,
-    CalendarIcon,
-    ChartBarIcon,
-    ChartPieIcon,
-    FunnelIcon
+  ArrowPathIcon,
+  CalendarIcon,
+  ChartBarIcon,
+  ChartPieIcon,
+  FunnelIcon
 } from '@heroicons/react/24/outline';
 import {
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    LineElement,
-    PointElement,
-    Title,
-    Tooltip,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { format, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const StatisticsView = () => {
       // Fetch logs to calculate statistics
       const [statsFromApi, logsResponse, dailyActivity] = await Promise.all([
         apiService.getStatistics().catch(() => null), // Try API endpoint, fallback to null
-        apiService.getLogs({ page: 0, size: 200, sortBy: 'timestamp', sortDir: 'desc' }),
+        apiService.getLogs({ page: 0, size: 1000, sortBy: 'timestamp', sortDir: 'desc' }),
         fetchDailyActivity()
       ]);
       
@@ -71,8 +71,8 @@ const StatisticsView = () => {
       
       // Calculate statistics from logs
       const totalOperations = logs.length;
-      const successfulOperations = logs.filter(log => log.status === 'SUCCESS').length;
-      const failedOperations = logs.filter(log => log.status === 'FAILURE').length;
+      const successfulOperations = statsFromApi?.successfulOperations || logs.filter(log => log.status === 'SUCCESS').length;
+      const failedOperations = statsFromApi?.failedOperations || logs.filter(log => log.status === 'FAILURE').length;
       const warningOperations = logs.filter(log => log.status === 'WARNING').length;
       const infoOperations = logs.filter(log => log.status === 'INFO').length;
       
@@ -121,7 +121,7 @@ const StatisticsView = () => {
       // Fetch recent logs to calculate daily activity
       const logs = await apiService.getLogs({ 
         page: 0, 
-        size: 200, 
+        size: 1000, 
         sortBy: 'timestamp', 
         sortDir: 'desc' 
       });

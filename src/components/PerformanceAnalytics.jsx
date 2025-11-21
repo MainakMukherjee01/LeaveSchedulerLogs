@@ -186,7 +186,7 @@ const PerformanceAnalytics = () => {
       // Fetch all necessary data
       const [slowOps, allLogs] = await Promise.all([
         apiService.getSlowOperations(selectedThreshold, 0, 20),
-        apiService.getLogs({ page: 0, size: 100, sortBy: 'timestamp', sortDir: 'desc' })
+        apiService.getLogs({ page: 0, size: 1000, sortBy: 'timestamp', sortDir: 'desc' })
       ]);
       
       const slowOpsContent = slowOps.content || [];

@@ -1,24 +1,24 @@
 import {
-    ArrowPathIcon,
-    ExclamationTriangleIcon,
-    EyeIcon,
-    GlobeAltIcon,
-    KeyIcon,
-    LockClosedIcon,
-    ShieldExclamationIcon,
-    UserGroupIcon
+  ArrowPathIcon,
+  ExclamationTriangleIcon,
+  EyeIcon,
+  GlobeAltIcon,
+  KeyIcon,
+  LockClosedIcon,
+  ShieldExclamationIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 import {
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    LineElement,
-    PointElement,
-    Title,
-    Tooltip,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { format, subDays } from 'date-fns';
 import { useEffect, useState } from 'react';
@@ -200,7 +200,7 @@ const SecurityAudit = () => {
       const [authenticationLogs, criticalOperations, allLogs] = await Promise.all([
         apiService.getAuthenticationLogs(0, 50),
         apiService.getCriticalOperations(0, 20),
-        apiService.getLogs({ page: 0, size: 100, sortBy: 'timestamp', sortDir: 'desc' })
+        apiService.getLogs({ page: 0, size: 1000, sortBy: 'timestamp', sortDir: 'desc' })
       ]);
       
       const authContent = authenticationLogs.content || [];
