@@ -1,13 +1,13 @@
 // filepath: src/components/MainDashboard.js
 import {
-    Activity,
-    AlertTriangle,
-    CheckCircle,
-    Clock,
-    Database,
-    FileText,
-    TrendingUp,
-    XCircle
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  Database,
+  FileText,
+  TrendingUp,
+  XCircle
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';

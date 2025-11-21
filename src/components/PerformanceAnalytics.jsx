@@ -1,21 +1,21 @@
 import {
-    ArrowTrendingUpIcon,
-    BoltIcon,
-    ClockIcon,
-    CpuChipIcon,
-    ExclamationTriangleIcon
+  ArrowTrendingUpIcon,
+  BoltIcon,
+  ClockIcon,
+  CpuChipIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import {
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    LineElement,
-    PointElement,
-    TimeScale,
-    Title,
-    Tooltip,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  TimeScale,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { format, subDays, subHours } from 'date-fns';
 import { useEffect, useState } from 'react';
