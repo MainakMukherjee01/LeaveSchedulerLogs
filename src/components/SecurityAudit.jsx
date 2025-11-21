@@ -166,8 +166,9 @@ const SecurityAudit = () => {
     
     // Process logs
     logs.forEach(log => {
-      const logDate = new Date(log.timestamp);
-      const key = format(logDate, period === '24h' ? 'HH:00' : 'MMM dd');
+      const utcTime = log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z';
+      const logDate = new Date(utcTime);
+      const key = format(logDate, period === '24h' ? 'HH:00' : 'MMM dd', { timeZone: 'Asia/Kolkata' });
       
       if (timeGroups[key]) {
         // Count failed logins
@@ -573,7 +574,7 @@ const SecurityAudit = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {log.timestamp ? format(new Date(log.timestamp), 'MMM dd, HH:mm') : 'N/A'}
+                      {log.timestamp ? format(new Date(log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z'), 'MMM dd, HH:mm') : 'N/A'}
                     </td>
                   </tr>
                 ))}
@@ -687,7 +688,7 @@ const SecurityAudit = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {op.timestamp ? format(new Date(op.timestamp), 'MMM dd, HH:mm:ss') : 'N/A'}
+                      {op.timestamp ? format(new Date(op.timestamp.endsWith('Z') ? op.timestamp : op.timestamp + 'Z'), 'MMM dd, HH:mm:ss') : 'N/A'}
                     </td>
                   </tr>
                 ))}

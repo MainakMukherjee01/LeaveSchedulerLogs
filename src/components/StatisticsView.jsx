@@ -138,8 +138,9 @@ const StatisticsView = () => {
       // Count logs by day
       (logs.content || []).forEach(log => {
         if (!log.timestamp) return;
-        const logDate = new Date(log.timestamp);
-        const key = format(logDate, 'MMM dd');
+        const utcTime = log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z';
+        const logDate = new Date(utcTime);
+        const key = format(logDate, 'MMM dd', { timeZone: 'Asia/Kolkata' });
         
         if (dailyStats[key]) {
           dailyStats[key].total++;

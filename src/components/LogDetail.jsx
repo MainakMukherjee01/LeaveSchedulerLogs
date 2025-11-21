@@ -93,7 +93,7 @@ const LogDetail = () => {
                 {log.status}
               </span>
               <p className="log-detail-timestamp">
-                {new Date(log.timestamp).toLocaleString()}
+                {new Date(log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z').toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
               </p>
             </div>
           </div>
@@ -194,7 +194,7 @@ const LogDetail = () => {
             </div>
             <div className="metadata-item">
               <label>Created</label>
-              <span>{new Date(log.timestamp).toLocaleString()}</span>
+              <span>{new Date(log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z').toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
             </div>
           </div>
         </div>

@@ -96,7 +96,7 @@ const MainDashboard = () => {
           <div className="dashboard-header-actions">
             <button onClick={() => window.location.reload()} className="refresh-btn">Refresh</button>
             {lastRefreshed && (
-              <div className="last-refreshed">Updated {lastRefreshed.toLocaleTimeString()}</div>
+              <div className="last-refreshed">Updated {lastRefreshed.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
             )}
           </div>
         </div>
@@ -140,7 +140,7 @@ const MainDashboard = () => {
                     <div className="failure-operation">{log.operation}</div>
                     <div className="failure-message">{log.message}</div>
                     <div className="failure-meta">
-                      <span>{log.username} • {new Date(log.timestamp).toLocaleString()}</span>
+                      <span>{log.username} • {new Date(log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z').toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
                     </div>
                   </div>
                 </div>

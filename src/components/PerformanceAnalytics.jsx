@@ -100,7 +100,9 @@ const PerformanceAnalytics = () => {
     const oldestLog = logs[logs.length - 1];
     const newestLog = logs[0];
     if (oldestLog && newestLog && oldestLog.timestamp && newestLog.timestamp) {
-      const timeRangeMs = new Date(newestLog.timestamp) - new Date(oldestLog.timestamp);
+      const oldestTime = oldestLog.timestamp.endsWith('Z') ? oldestLog.timestamp : oldestLog.timestamp + 'Z';
+      const newestTime = newestLog.timestamp.endsWith('Z') ? newestLog.timestamp : newestLog.timestamp + 'Z';
+      const timeRangeMs = new Date(newestTime) - new Date(oldestTime);
       const timeRangeMinutes = Math.max(1, timeRangeMs / 60000);
       const throughputPerMinute = Math.floor(logs.length / timeRangeMinutes);
       
@@ -148,8 +150,9 @@ const PerformanceAnalytics = () => {
     // Process logs into time buckets
     logs.forEach(log => {
       if (!log.timestamp) return;
-      const logDate = new Date(log.timestamp);
-      const key = format(logDate, period === '24h' ? 'HH:00' : 'MMM dd');
+      const utcTime = log.timestamp.endsWith('Z') ? log.timestamp : log.timestamp + 'Z';
+      const logDate = new Date(utcTime);
+      const key = format(logDate, period === '24h' ? 'HH:00' : 'MMM dd', { timeZone: 'Asia/Kolkata' });
       
       if (timeGroups[key]) {
         timeGroups[key].requestCount++;
@@ -591,7 +594,7 @@ const PerformanceAnalytics = () => {
                       {operation.username || operation.userId || 'Anonymous'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {operation.timestamp ? format(new Date(operation.timestamp), 'MMM dd, HH:mm:ss') : 'N/A'}
+                      {operation.timestamp ? format(new Date(operation.timestamp.endsWith('Z') ? operation.timestamp : operation.timestamp + 'Z'), 'MMM dd, HH:mm:ss') : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

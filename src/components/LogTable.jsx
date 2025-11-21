@@ -4,6 +4,13 @@ import { Activity, ChevronDown, ChevronUp, Clock, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const LogTable = ({ logs, onSort, sortBy, sortDir }) => {
+  // Convert UTC timestamp to IST (UTC+5:30)
+  const convertToIST = (timestamp) => {
+    // Append 'Z' to treat as UTC if not already present
+    const utcTime = timestamp.endsWith('Z') ? timestamp : timestamp + 'Z';
+    return new Date(utcTime);
+  };
+
   const getSortIcon = (column) => {
     if (sortBy !== column) return null;
     return sortDir === 'asc' ? <ChevronUp size={16} /> : <ChevronDown size={16} />;
@@ -67,13 +74,13 @@ const LogTable = ({ logs, onSort, sortBy, sortDir }) => {
                 <td className="timestamp-cell">
                   <div className="timestamp">
                     <div className="time-main">
-                      {new Date(log.timestamp).toLocaleDateString()}
+                      {convertToIST(log.timestamp).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}
                     </div>
                     <div className="time-sub">
-                      {new Date(log.timestamp).toLocaleTimeString()}
+                      {convertToIST(log.timestamp).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}
                     </div>
                     <div className="time-relative">
-                      {formatDistanceToNow(new Date(log.timestamp), { addSuffix: true })}
+                      {formatDistanceToNow(convertToIST(log.timestamp), { addSuffix: true })}
                     </div>
                   </div>
                 </td>
